@@ -29,7 +29,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/usermanager', function () {
-    return Inertia::render('Auth/Register');
+    return Inertia::render('Auth/UserManager');
 })->middleware(['auth', 'verified'])->name('usermanager');
 
 require __DIR__.'/auth.php';
