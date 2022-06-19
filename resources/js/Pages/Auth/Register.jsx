@@ -6,6 +6,7 @@ import ValidationErrors from "@/Components/ValidationErrors";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 import css from "./Register.module.css";
+import axios from "axios";
 
 export default function Register(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -16,6 +17,7 @@ export default function Register(props) {
     });
 
     useEffect(() => {
+        getUsers();
         return () => {
             reset("password", "password_confirmation");
         };
@@ -29,6 +31,13 @@ export default function Register(props) {
                 : event.target.value
         );
     };
+
+    const getUsers = () => {
+        axios.get('/api/get/users').then((e) => {
+            console.log(e.data);
+        })
+    }
+
 
     const submit = (e) => {
         e.preventDefault();
