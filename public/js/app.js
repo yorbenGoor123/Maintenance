@@ -5475,7 +5475,7 @@ function Register(props) {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
                   className: "ml-4",
                   processing: processing,
-                  children: "Register"
+                  children: "Add new user"
                 })
               })]
             })]
@@ -5505,6 +5505,10 @@ function Register(props) {
                         scope: "col",
                         "class": "text-sm font-medium text-gray-900 px-6 py-4 text-left",
                         children: "Name"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("th", {
+                        scope: "col",
+                        "class": "text-sm font-medium text-gray-900 px-6 py-4 text-left",
+                        children: "Role"
                       })]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("tbody", {
@@ -5520,6 +5524,9 @@ function Register(props) {
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("td", {
                           className: "text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap",
                           children: x.name
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("td", {
+                          className: "text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap",
+                          children: "Admin"
                         })]
                       });
                     })
@@ -6506,7 +6513,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/bspokelogo.svg?c3ae52234ec7bd59b78ae0e6c39f0e46");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/bspokelogo.svg?16ab84f0e1b2c82f8281491e4880b451");
 
 /***/ }),
 

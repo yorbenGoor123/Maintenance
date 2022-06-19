@@ -126,7 +126,7 @@ function Register(props) {
                                         className="ml-4"
                                         processing={processing}
                                     >
-                                        Register
+                                        Add new user
                                     </Button>
                                 </div>
                             </form>
@@ -158,6 +158,13 @@ function Register(props) {
                                                 >
                                                     Name
                                                 </th>
+
+                                                <th
+                                                    scope="col"
+                                                    class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                >
+                                                    Role
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -167,9 +174,18 @@ function Register(props) {
                                             ) {
                                                 return (
                                                     <tr className="bg-white border-b">
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{i+1}</td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{x.email}</td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{x.name}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            {i + 1}
+                                                        </td>
+                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                            {x.email}
+                                                        </td>
+                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                            {x.name}
+                                                        </td>
+                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                            Admin
+                                                        </td>
                                                     </tr>
                                                 );
                                             })}
