@@ -29,9 +29,30 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try
+        {
+            $userName = $request->get('name');
+            $userEmail = $request->get('email');
+            $userPassword = $request->get('password');
+
+            User::create([
+                'name'  =>  $userName,
+                'email' =>  $userEmail,
+                'password' => $userPassword
+            ]);
+
+            return response()->json([
+                'name'   =>  $userName,
+                'email' =>  $userEmail,
+                'password' => $userPassword
+            ]);
+        }
+        catch(Exception $e)
+        {
+            Log::error($e);
+        }
     }
 
     /**

@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('api')->get('/get/users', [UserController::class, "index"])
 ->name('getUsers');
+
+Route::middleware('api')->post('/store/users',
+    [UserController::class, 'create']);

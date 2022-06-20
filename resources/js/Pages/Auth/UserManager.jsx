@@ -8,6 +8,8 @@ import Authenticated from "@/Layouts/Authenticated";
 import css from "./Register.module.css";
 import { useStore } from "@/hooks/useStore";
 import { Observer } from "mobx-react-lite";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Register(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -37,7 +39,25 @@ function Register(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("register"));
+        axios.post('register', {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password_confirmation
+        }).then((e) => {
+            toast.success("User succesfully added");
+            userStore.addUser(e.data);
+            setData(
+                {
+                    name: "",
+                    email: "",
+                    password: "",
+                    password_confirmation: ""
+                }
+            )
+        }).catch(() => {
+            toast.error("Something went wrong");
+        })
     };
 
     return (

@@ -35,7 +35,6 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('register', [RegisteredUserController::class, 'create'])
-        ->middleware(['auth', 'verified'])
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);

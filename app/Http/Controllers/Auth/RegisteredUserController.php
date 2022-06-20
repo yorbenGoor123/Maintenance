@@ -4,26 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     *
-     * @return \Inertia\Response
-     */
-    public function create()
-    {
-        return Inertia::render('Auth/Register');
-    }
-
     /**
      * Handle an incoming registration request.
      *
@@ -46,10 +35,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        return response()->json($user);
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        //event(new Registered($user));
+        //Auth::login($user);
+        //redirect(RouteServiceProvider::USERMANAGER);
     }
 }

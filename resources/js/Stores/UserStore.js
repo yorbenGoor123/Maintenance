@@ -12,6 +12,7 @@ class UserStore {
         makeObservable(this, {
             users: observable,
             getUsers: action,
+            addUser: action,
         })
     }
 
@@ -20,6 +21,10 @@ class UserStore {
             this.users = e.data
         });
         console.log(this.users);
+    }
+
+    addUser = async (user) => {
+        this.users.push(user);
     }
 }
 
