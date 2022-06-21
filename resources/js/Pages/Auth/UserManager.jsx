@@ -32,29 +32,6 @@ function Register(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        //axios.post('register', {
-        //    name: name,
-        //    email: email,
-        //    password: password,
-        //    password_confirmation: password_confirmation
-        //}).then((r) => {
-        //    toast.success("User succesfully added");
-        //    userStore.addUser({
-        //        name,
-        //        email,
-        //        password,
-        //        password_confirmation
-        //    });
-        //    console.log(r);
-        //    setEmail("");
-        //    setPassword("");
-        //    setPassword_confirmation("");
-        //    setName("");
-        //}).catch((r) => {
-        //    console.log();
-        //    toast.error("Something went wrong");
-        //})
-
         axios
             .post("/register", {
                 name: name,
@@ -74,10 +51,10 @@ function Register(props) {
                 setPassword("");
                 setPassword_confirmation("");
                 setName("");
+                setErrors({});
             })
             .catch((error) => {
-                console.log(error.response);
-                setErrors(error.response.data.errors)
+                setErrors(error.response.data.errors);
                 toast.error("Something went wrong");
             });
     };
