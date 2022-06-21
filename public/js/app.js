@@ -5355,6 +5355,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -5371,18 +5383,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Register(props) {
-  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_5__.useForm)({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
-  }),
-      data = _useForm.data,
-      setData = _useForm.setData,
-      post = _useForm.post,
-      processing = _useForm.processing,
-      errors = _useForm.errors,
-      reset = _useForm.reset;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      name = _useState2[0],
+      setName = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      email = _useState4[0],
+      setEmail = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      password = _useState6[0],
+      setPassword = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState8 = _slicedToArray(_useState7, 2),
+      password_confirmation = _useState8[0],
+      setPassword_confirmation = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+      _useState10 = _slicedToArray(_useState9, 2),
+      errors = _useState10[0],
+      setErrors = _useState10[1];
 
   var _useStore = (0,_hooks_useStore__WEBPACK_IMPORTED_MODULE_8__.useStore)(),
       userStore = _useStore.userStore;
@@ -5390,31 +5414,57 @@ function Register(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     userStore.getUsers();
     return function () {
-      reset("password", "password_confirmation");
-    };
-  }, []);
-
-  var onHandleChange = function onHandleChange(event) {
-    setData(event.target.name, event.target.type === "checkbox" ? event.target.checked : event.target.value);
-  };
-
-  var submit = function submit(e) {
-    e.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_10___default().post('register', {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      password_confirmation: data.password_confirmation
-    }).then(function (e) {
-      react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success("User succesfully added");
-      userStore.addUser(e.data);
       setData({
-        name: "",
-        email: "",
         password: "",
         password_confirmation: ""
       });
-    })["catch"](function () {
+    };
+  }, []);
+
+  var submit = function submit(e) {
+    e.preventDefault(); //axios.post('register', {
+    //    name: name,
+    //    email: email,
+    //    password: password,
+    //    password_confirmation: password_confirmation
+    //}).then((r) => {
+    //    toast.success("User succesfully added");
+    //    userStore.addUser({
+    //        name,
+    //        email,
+    //        password,
+    //        password_confirmation
+    //    });
+    //    console.log(r);
+    //    setEmail("");
+    //    setPassword("");
+    //    setPassword_confirmation("");
+    //    setName("");
+    //}).catch((r) => {
+    //    console.log();
+    //    toast.error("Something went wrong");
+    //})
+
+    axios__WEBPACK_IMPORTED_MODULE_10___default().post("/register", {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    }).then(function (response) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success("User succesfully added");
+      userStore.addUser({
+        name: name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      });
+      setEmail("");
+      setPassword("");
+      setPassword_confirmation("");
+      setName("");
+    })["catch"](function (error) {
+      console.log(error.response);
+      setErrors(error.response.data.errors);
       react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.error("Something went wrong");
     });
   };
@@ -5447,11 +5497,13 @@ function Register(props) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                   type: "text",
                   name: "name",
-                  value: data.name,
+                  value: name,
                   className: "mt-1 block w-full",
                   autoComplete: "name",
                   isFocused: true,
-                  handleChange: onHandleChange,
+                  handleChange: function handleChange(e) {
+                    return setName(e.target.value);
+                  },
                   required: true
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -5462,10 +5514,12 @@ function Register(props) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                   type: "email",
                   name: "email",
-                  value: data.email,
+                  value: email,
                   className: "mt-1 block w-full",
                   autoComplete: "username",
-                  handleChange: onHandleChange,
+                  handleChange: function handleChange(e) {
+                    return setEmail(e.target.value);
+                  },
                   required: true
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -5476,10 +5530,12 @@ function Register(props) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                   type: "password",
                   name: "password",
-                  value: data.password,
+                  value: password,
                   className: "mt-1 block w-full",
                   autoComplete: "new-password",
-                  handleChange: onHandleChange,
+                  handleChange: function handleChange(e) {
+                    return setPassword(e.target.value);
+                  },
                   required: true
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -5490,16 +5546,17 @@ function Register(props) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                   type: "password",
                   name: "password_confirmation",
-                  value: data.password_confirmation,
+                  value: password_confirmation,
                   className: "mt-1 block w-full",
-                  handleChange: onHandleChange,
+                  handleChange: function handleChange(e) {
+                    return setPassword_confirmation(e.target.value);
+                  },
                   required: true
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
                 className: "flex items-center justify-end mt-4",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
                   className: "ml-4",
-                  processing: processing,
                   children: "Add new user"
                 })
               })]

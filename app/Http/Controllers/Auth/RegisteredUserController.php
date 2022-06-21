@@ -37,6 +37,7 @@ class RegisteredUserController extends Controller
 
         return response()->json($user);
 
+
         //event(new Registered($user));
         //Auth::login($user);
         //redirect(RouteServiceProvider::USERMANAGER);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Button from "@/Components/Button";
 import Input from "@/Components/Input";
 import Label from "@/Components/Label";
@@ -12,52 +12,74 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 function Register(props) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-    });
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [password_confirmation, setPassword_confirmation] = useState("");
+    const [errors, setErrors] = useState({});
 
     const { userStore } = useStore();
 
     useEffect(() => {
         userStore.getUsers();
         return () => {
-            reset("password", "password_confirmation");
+            setData({
+                password: "",
+                password_confirmation: "",
+            });
         };
     }, []);
 
-    const onHandleChange = (event) => {
-        setData(
-            event.target.name,
-            event.target.type === "checkbox"
-                ? event.target.checked
-                : event.target.value
-        );
-    };
-
     const submit = (e) => {
         e.preventDefault();
-        axios.post('register', {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            password_confirmation: data.password_confirmation
-        }).then((e) => {
-            toast.success("User succesfully added");
-            userStore.addUser(e.data);
-            setData(
-                {
-                    name: "",
-                    email: "",
-                    password: "",
-                    password_confirmation: ""
-                }
-            )
-        }).catch(() => {
-            toast.error("Something went wrong");
-        })
+        //axios.post('register', {
+        //    name: name,
+        //    email: email,
+        //    password: password,
+        //    password_confirmation: password_confirmation
+        //}).then((r) => {
+        //    toast.success("User succesfully added");
+        //    userStore.addUser({
+        //        name,
+        //        email,
+        //        password,
+        //        password_confirmation
+        //    });
+        //    console.log(r);
+        //    setEmail("");
+        //    setPassword("");
+        //    setPassword_confirmation("");
+        //    setName("");
+        //}).catch((r) => {
+        //    console.log();
+        //    toast.error("Something went wrong");
+        //})
+
+        axios
+            .post("/register", {
+                name: name,
+                email: email,
+                password: password,
+                password_confirmation: password_confirmation,
+            })
+            .then((response) => {
+                toast.success("User succesfully added");
+                userStore.addUser({
+                    name,
+                    email,
+                    password,
+                    password_confirmation,
+                });
+                setEmail("");
+                setPassword("");
+                setPassword_confirmation("");
+                setName("");
+            })
+            .catch((error) => {
+                console.log(error.response);
+                setErrors(error.response.data.errors)
+                toast.error("Something went wrong");
+            });
     };
 
     return (
@@ -85,11 +107,13 @@ function Register(props) {
                                     <Input
                                         type="text"
                                         name="name"
-                                        value={data.name}
+                                        value={name}
                                         className="mt-1 block w-full"
                                         autoComplete="name"
                                         isFocused={true}
-                                        handleChange={onHandleChange}
+                                        handleChange={(e) =>
+                                            setName(e.target.value)
+                                        }
                                         required
                                     />
                                 </div>
@@ -100,10 +124,12 @@ function Register(props) {
                                     <Input
                                         type="email"
                                         name="email"
-                                        value={data.email}
+                                        value={email}
                                         className="mt-1 block w-full"
                                         autoComplete="username"
-                                        handleChange={onHandleChange}
+                                        handleChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
                                         required
                                     />
                                 </div>
@@ -117,10 +143,12 @@ function Register(props) {
                                     <Input
                                         type="password"
                                         name="password"
-                                        value={data.password}
+                                        value={password}
                                         className="mt-1 block w-full"
                                         autoComplete="new-password"
-                                        handleChange={onHandleChange}
+                                        handleChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         required
                                     />
                                 </div>
@@ -134,18 +162,19 @@ function Register(props) {
                                     <Input
                                         type="password"
                                         name="password_confirmation"
-                                        value={data.password_confirmation}
+                                        value={password_confirmation}
                                         className="mt-1 block w-full"
-                                        handleChange={onHandleChange}
+                                        handleChange={(e) =>
+                                            setPassword_confirmation(
+                                                e.target.value
+                                            )
+                                        }
                                         required
                                     />
                                 </div>
 
                                 <div className="flex items-center justify-end mt-4">
-                                    <Button
-                                        className="ml-4"
-                                        processing={processing}
-                                    >
+                                    <Button className="ml-4">
                                         Add new user
                                     </Button>
                                 </div>
