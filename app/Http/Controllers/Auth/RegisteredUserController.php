@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -27,15 +28,22 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => 'required|string|max:255'
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if($request->authRole === "user") {
+            throw new Exception("A user doesn't have rights to do this api call");
+            return null;
+        }else {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role
+            ]);
 
-        return response()->json($user);
+            return response()->json($user);
+        }
 
 
         //event(new Registered($user));

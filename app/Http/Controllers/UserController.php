@@ -36,17 +36,20 @@ class UserController extends Controller
             $userName = $request->get('name');
             $userEmail = $request->get('email');
             $userPassword = $request->get('password');
+            $userRole = $request->get('role');
 
             User::create([
                 'name'  =>  $userName,
                 'email' =>  $userEmail,
-                'password' => $userPassword
+                'password' => $userPassword,
+                'role' => $userRole
             ]);
 
             return response()->json([
                 'name'   =>  $userName,
                 'email' =>  $userEmail,
-                'password' => $userPassword
+                'password' => $userPassword,
+                'role' => $userRole
             ]);
         }
         catch(Exception $e)

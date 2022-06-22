@@ -20,7 +20,6 @@ class UserStore {
         await axios.get('/api/get/users').then((e) => {
             this.users = e.data
         });
-        console.log(this.users);
     }
 
     addUser = async (user) => {
