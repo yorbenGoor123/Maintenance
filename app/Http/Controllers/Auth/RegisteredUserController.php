@@ -7,11 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use App\Providers\RouteServiceProvider;
 use Exception;
-use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
-
+use Illuminate\Auth\Events\Registered;
 class RegisteredUserController extends Controller
 {
     /**
@@ -42,11 +39,11 @@ class RegisteredUserController extends Controller
                 'role' => $request->role
             ]);
 
+            event(new Registered($user));
             return response()->json($user);
         }
 
 
-        //event(new Registered($user));
         //Auth::login($user);
         //redirect(RouteServiceProvider::USERMANAGER);
     }
